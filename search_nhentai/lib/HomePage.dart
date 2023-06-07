@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:search_nhentai/Helper.dart';
 import 'package:search_nhentai/UploadImage.dart';
-import 'dart:math';
+
 List<String> imagePaths = [
   'assets/1.jpg',
   'assets/2.png',

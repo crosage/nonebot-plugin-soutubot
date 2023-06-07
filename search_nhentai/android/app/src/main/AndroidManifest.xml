@@ -1,8 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.search_nhentai">
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application
+   <application
         android:label="search_nhentai"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

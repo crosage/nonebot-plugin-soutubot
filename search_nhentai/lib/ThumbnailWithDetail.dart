@@ -3,7 +3,7 @@ import 'package:http/http.dart';
 
 class ThumbnailWithDetail extends StatefulWidget{
   final String previewImage;
-  final String author;
+  final String source;
   final String title;
   final double similarity;
   final String pagePath;
@@ -14,7 +14,7 @@ class ThumbnailWithDetail extends StatefulWidget{
   const ThumbnailWithDetail({
       super.key,
       required this.title,
-      required this.author,
+      required this.source,
       required this.similarity,
       required this.subjectPath,
       required this.language,
@@ -38,7 +38,7 @@ class _ThumbnailWithDetailState extends State<ThumbnailWithDetail>{
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(widget.title),
-              Text(widget.author)
+              Text(widget.source)
             ],
           )
         ],

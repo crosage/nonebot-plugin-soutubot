@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:search_nhentai/ThumbnailWithDetail.dart';
 import 'package:search_nhentai/UploadImage.dart';
 import 'dart:math';
 import 'package:get/get.dart';
@@ -46,6 +47,7 @@ class ImageList extends StatelessWidget {
   }
 
   Future<dynamic> getDetails() async {
+    List<ThumbnailWithDetail> ImageList=[];
     Map<String, String> header = DEFAULT_HEADERS;
     String Q = calculateQ();
     String encode = encodeQ(Q);
@@ -57,21 +59,36 @@ class ImageList extends StatelessWidget {
     var stream = http.ByteStream((image_!).openRead());
     var length = await (image_!).length();
     print(stream);
-    print("1321546543");
-    var responsetest = await request.send().timeout(const Duration(seconds: 5),onTimeout: () async {
-      throw Exception("Error");
-    });
-    print("responseTest");
-    print(responsetest);
-    request.files
-        .add(await http.MultipartFile('file', stream,length,filename: "test.png"));
+    request.files.add(await http.MultipartFile('file', stream,length,filename: "test.png"));
     print(request.files);
     var response = await request.send();
     print(image_?.path);
     var responseString = await response.stream.bytesToString();
-    print(responseString);
+    // print(responseString);
     dynamic responseJson = json.decode(responseString);
     print(responseJson);
+    int now=0;
+    for(final i in responseJson["data"]){
+      print(now);
+      ImageList.add(
+          ThumbnailWithDetail(
+              title: i["title"],
+              source: i["source"],
+              similarity: i["similarity"],
+              subjectPath: i["subjectPath"],
+              language: i["language"],
+              page: i["page"],
+              pagePath: i["pagePath"],
+              previewImage: i["previewImageUrl"]
+          )
+      );
+      // print(i);
+    }
+    print("************");
+    print(ImageList);
+    print("************");
+    return ImageList;
+    // ImageList.add(ThumbnailWithDetail(title: title, author: author, similarity: similarity, subjectPath: subjectPath, language: language, page: page, pagePath: pagePath, previewImage: previewImage));
   }
 
   @override
@@ -82,7 +99,23 @@ class ImageList extends StatelessWidget {
       future: getDetails(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Text("1234");
+          print("**************");
+
+          return ListView(
+            children: [
+              for(final i in snapshot.data)
+                  ThumbnailWithDetail(
+                      title: i.title,
+                      source: i.source,
+                      similarity: i.similarity,
+                      subjectPath: i.subjectPath,
+                      language: i.language,
+                      page: i.page,
+                      pagePath: i.pagePath,
+                      previewImage: i.previewImage
+                  )
+                  ],
+          );
         } else {
           return Center(
             child: CircularProgressIndicator(
