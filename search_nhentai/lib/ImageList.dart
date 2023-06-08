@@ -47,6 +47,7 @@ class ImageList extends StatelessWidget {
   }
 
   Future<dynamic> getDetails() async {
+    print("getDetails");
     List<ThumbnailWithDetail> ImageList=[];
     Map<String, String> header = DEFAULT_HEADERS;
     String Q = calculateQ();
@@ -63,18 +64,29 @@ class ImageList extends StatelessWidget {
     print(request.files);
     var response = await request.send();
     print(image_?.path);
-    var responseString = await response.stream.bytesToString();
-    // print(responseString);
+    String responseString = await response.stream.bytesToString();
+    print(responseString);
     dynamic responseJson = json.decode(responseString);
     print(responseJson);
     int now=0;
+    print("###########");
     for(final i in responseJson["data"]){
-      print(now);
+      now=now+1;
+      print(i);
+      print("第"+now.toString()+"次");
+      print(i["title"]);
+      print(i["source"]);
+      print(i["similarity"]);
+      print(i["subjectPath"]);
+      print(i["language"]);
+      print(i["page"]);
+      print(i["pagePath"]);
+      print(i["previewImageUrl"]);
       ImageList.add(
           ThumbnailWithDetail(
               title: i["title"],
               source: i["source"],
-              similarity: i["similarity"],
+              similarity: i["similarity"].toDouble(),
               subjectPath: i["subjectPath"],
               language: i["language"],
               page: i["page"],
@@ -82,6 +94,7 @@ class ImageList extends StatelessWidget {
               previewImage: i["previewImageUrl"]
           )
       );
+      print("第"+now.toString()+"结束");
       // print(i);
     }
     print("************");
@@ -113,7 +126,7 @@ class ImageList extends StatelessWidget {
                       page: i.page,
                       pagePath: i.pagePath,
                       previewImage: i.previewImage
-                  )
+                  ),SizedBox(height: 20,)
                   ],
           );
         } else {

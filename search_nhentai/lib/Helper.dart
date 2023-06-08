@@ -28,17 +28,42 @@ class helper extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(
-                Icons.photo_size_select_actual
-              ), SizedBox(width: 20,),Text("选择你要搜索的图片")],
-
+              Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.arrow_upward)
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Text("选择你要搜索的图片")
+            ],
           ),
           SizedBox(
             height: 20,
           ),
           Row(
-            children: [Icon(Icons.search,color: Colors.amber,),SizedBox(width: 20,), Text("等待返回结果回传")],
+            children: [
+              Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.search_rounded)
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Text("等待返回结果回传")
+            ],
           ),
+          SizedBox(height: 50,),
           Row(
             children: [
               Flexible(child: Image(image: AssetImage(randomImagePath))),
